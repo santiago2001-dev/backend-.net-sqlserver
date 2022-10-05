@@ -213,3 +213,12 @@ AS
 BEGIN 
 SELECT precio from producto;
 END
+
+
+--Obtener el valor total vendido por cada producto en el año 2000
+drop table if exists temp
+select idProducto,COUNT(idProducto)cantidad INTO temp from venta WHERE YEAR(fecha) = '2000' GROUP BY idProducto;
+select * from temp
+select * from producto
+
+select p.nombre,(p.precio * (COUNT(v.idProducto))) AS total from producto p inner join venta v on p.id = v.idProducto group by p.nombre, p.precio,v.idProducto;
